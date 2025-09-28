@@ -1,0 +1,72 @@
+{
+    "marketwatch": {
+        "Content-Type": "application/json",
+        "Device-Brand": "Apple",
+        "Accept": "*/*",
+        "App-Version": "7.12.11",
+        "Device-Type": "phone",
+        "Accept-Language": "en-GB,en;q=0.9",
+        "Device-Name": "iPhone15,5",
+        "Screen-Width": "1290.0",
+        "User-Agent": "MarketWatch/3660 CFNetwork/3826.600.41 Darwin/24.6.0",
+        "Screen-Height": "2796.0",
+        "Os-Name": "iOS",
+        "Os-Version": "18.6",
+        "App-Identifier": "com.dowjones.mktw",
+        "X-Access-Token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJBVVRIX1BIUkFTRV9QUk9EX0lPUyI6IkFVRElDVkZ5TTNWZ2cxaUdEckMzIn0.r6nZA9c1TX_WKn8h7jXXndu5z9s0n7vLL_tDRkRY2sqDixfZXC4QaQ-cyTJw-Q1XbXEcnngY6j1i-UzGGielHL-c2RODiYVznd0lnE-3RO86keVe-8WNQkP0xH0NsDHXMaEmXm3yb547yAQTnUaYEAvFTFgG1haF38U1DKVawGTbEGEgL7fZkmkpB2z3GYMjMHE8sSS8bYeSqJLkOn_ZguHxjGdjfrQP2TqfwmyvXTdyo44QNcdyBIa35Oaa3j8Qon8OGpH3CjlfHMWTpqFCrXgDjTPcrAjW173vQYZy-KvdiPp-OM1pzzx_HL8NKmaHqAyU269h2cAen4gg60hdDg"
+    },
+    "barrons": {
+        "Content-Type": "application/json",
+        "Device-Brand": "Apple",
+        "App-Identifier": "com.dowjones.Barrons.ipad",
+        "Accept": "*/*",
+        "App-Version": "5.19.7",
+        "Device-Type": "phone",
+        "Accept-Language": "en-GB,en;q=0.9",
+        "Cache-Control": "max-age=300",
+        "Device-Name": "iPhone15,5",
+        "Screen-Width": "1290.0",
+        "User-Agent": "Barrons/5002 CFNetwork/3826.500.131 Darwin/24.5.0",
+        "Screen-Height": "2796.0",
+        "Os-Name": "iOS",
+        "X-Access-Token": "eyJhbGciOiJSUzI1NiJ9.WFZsaHN3MXd3Smw0V3kwRXBzclQ.qwwBedAUNXHTQchowQZ5zMwmnXqDKeMhoRJlkB7drjWmb0ktZCScIhq5lpIiWaMyNJA_ODYgHAfIoi7DKWkS8g8GunFNAXpJDUOLdI2rtQkTEi_E3o90rdZHunPR7p0ULjRmHCnDofAdpTQdJtTXjQ9eEDZT2xoooVGdBpoVKhE",
+        "Os-Version": "18.5"
+    },
+    "reuters": {
+        "Host": "www.reuters.com",
+        "Cookie": "reuters-geo={\"country\":\"-\",\"region\":\"-\"}; arenaUserCountry=DE; cw-test-bcss-50=test; cw-test-20250625-prebid-v2-test-1-99=control; _ga=GA1.1.871724425.1738312107; _ga_4087634V1B=GS2.1.s1754560589$o1$g1$t1754560590$j59$l0$h0; datadome=tZuE0A5InCO2FWzVTR19YuyfNKYB7Mdvzm3tbJjr1MmDlxRLIQrtGJQvRQwPHLo~5LkL3CDwNVth8FoCInQGJjLYxfl0D99VariwZxK9ig1bN4hKb0MStuRd1YYVPxQR; OptanonConsent=isGpcEnabled=0&datestamp=Sun+Mar+30+2025+15%3A20%3A04+GMT%2B0200+(Central+European+Summer+Time)&version=202502.1.0&browserGpcFlag=0&isIABGlobal=false&hosts=&consentId=12c6cca0-a5bb-46af-9909-deaa45abb81d&interactionCount=1&isAnonUser=1&landingPath=NotLandingPage&groups=1%3A1%2C2%3A0%2C3%3A0%2C4%3A0%2CV2STACK42%3A0&genVendors=V8%3A1%2CV15%3A0%2CV11%3A0%2CV26%3A1%2CV27%3A0%2CV23%3A0%2CV28%3A0%2CV29%3A0%2CV25%3A0%2CV6%3A0%2CV24%3A0%2C&intType=2&geolocation=DE%3BBY&AwaitingReconsent=false; usprivacy=1---; _ga_WBSR7WLTGD=GS1.1.1743340803.6.0.1743340803.60.0.0; ABTasty=uid=en0nskrkn9mwbt7p; OptanonConsent=isGpcEnabled=0&datestamp=Sat+Mar+15+2025+15%3A25%3A03+GMT%2B0100+(Central+European+Standard+Time)&version=202502.1.0&browserGpcFlag=0&isIABGlobal=false&hosts=&consentId=12c6cca0-a5bb-46af-9909-deaa45abb81d&interactionCount=1&isAnonUser=1&landingPath=NotLandingPage&groups=1%3A1%2C2%3A0%2C3%3A0%2C4%3A0%2CV2STACK42%3A0&genVendors=V8%3A1%2CV15%3A0%2CV11%3A0%2CV26%3A1%2CV27%3A0%2CV23%3A0%2CV28%3A0%2CV29%3A0%2CV25%3A0%2CV6%3A0%2CV24%3A0%2C&intType=2&geolocation=DE%3BBY&AwaitingReconsent=false; ajs_anonymous_id=2b0bf563-34c8-4c38-9dba-be82cdaa4ee5; _cb=S9ZCLBZZpDKB5rj_D; _chartbeat2=.1738312107517.1738312196458.1.cbFrzD_fAX5BzuiUWBpPcUQBgLsV8.2; OneTrustWPCCPAGoogleOptOut=true; OTAdditionalConsentString=1~; OptanonAlertBoxClosed=2025-01-31T08:28:30.489Z; eupubconsent-v2=CQMGCxgQMGCxgAcABBENBaFgAAAAAEPgACiQAAAUEgfgALAAdABQAFQALgAcAA8ACAAEgAJwAZAA0ABwAD8AIgARwAmABSACqAGIANAAegA_ACEAEcAJwAUYArQBogDkAHOAO4AewA_QCAQEHAQgAi0BHAEdAJ-AYoA14BxADqAHbAP-Ah0BR4C1AF5gMEAYsAyQBlgDLgGmgN1AcEA5YB-oD-wIJgRvAnSBQQAgKACABOAQgIAEAB0ARAA_4DUh4AEAE44AIADoAiAB_wGpEgAgADgCIAH_AakTAAgAnKABgAHAA6AIQARABGoDUioAEAE4.YAAACHwAAAAA",
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "User-Agent": "ReutersNews/7.20.0 iPhone15,5 iOS/18.6 CFNetwork/1.0 Darwin/24.6.0",
+        "Accept-Language": "en-GB,en;q=0.9"
+    },
+    "wsj": {
+        "Content-Type": "application/json",
+        "Accept": "multipart/mixed;deferSpec=20220824,application/json",
+        "Apollographql-Client-Version": "14.46.0",
+        "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik16SXhRekZHTVRRelF6YzBSVEpCTVRJMVJrWXdOa015TVVFM01URTBOVVl4UWpreU9ERTBRZ28ifQ.eyJzdWIiOiI1Yzg0N2ZlNy1jYzk1LTRlMjctOTk4OC1hMzYwYTllZDdlZWIiLCJ0aWQiOiJzc28iLCJhenAiOiI1aHNzRUFkTXkwbUpUSUNuSk52QzlUWEV3M1ZhN2pmTyIsImF1dGhfdGltZSI6MTc0OTcwOTI2OCwic2lkIjoiUlVCR0lZaG1SWHpkdFpudEh6cS1wd1VZZGEydkZXMzNSTkxjTEZ1TkdUQjk5eHB4OHJwdU1nIiwicm9sZXMiOlsiQkFSUk9OUy1DSEFOR0VQQVNTV09SRCIsIkZSRUVSRUctQkFTRSIsIkZSRUVSRUctSU5ESVZJRFVBTCIsIldTSi1DSEFOR0VQQVNTV09SRCIsIldTSi1BUkNISVZFIiwiV1NKLVNFTEZTRVJWIiwiV1NKLUlQQUQiLCJXU0otQU5EUk9JRF9UQUJMRVQiLCJESi1XU0otRElHSVRBTFBMVVMiLCJXU0otTU9CSUxFIiwiV1NKIiwiV1NKLVBSSU5ULUVESVRJT04tQVBQIiwiQkFSUk9OUy1JUEFEIiwiREotQkFSUk9OUy1ESUdJVEFMUExVUyIsIk1XLU1PQklMRSIsIkJBUlJPTlMiLCJCQVJST05TLUFORFJPSUQiLCJCQVJST05TLU1BUktFVEJSSUVGIiwiQkFSUk9OUy1XRUFMVEgtTElGRSIsIk1XLU9OTElORSIsIk1XLUlQQUQiXSwiZ2l2ZW5fbmFtZSI6IkZpbGlwIiwiZmFtaWx5X25hbWUiOiJBbGV4YW5kcm92IiwiZGppZCI6IjVjODQ3ZmU3LWNjOTUtNGUyNy05OTg4LWEzNjBhOWVkN2VlYiIsInV1aWQiOiI1Yzg0N2ZlNy1jYzk1LTRlMjctOTk4OC1hMzYwYTllZDdlZWIiLCJpZHBfaWQiOiJhdXRoMCIsInRyYWNraWQiOiJjZDIxYWIzNmMwZTY0ZWEyM2U1ODFhMTJhOWRhMGE3NGMzM2EwNDNjZjgxYjM2NTZjYzRkMGRlMzM5MTViZmUzIiwiY3JlYXRlVGltZXN0YW1wIjoiMjAyNTAzMTEwODI3MzZaIiwic3V1aWQiOiJOV000TkRkbVpUY3RZMk01TlMwMFpUSTNMVGs1T0RndFlUTTJNR0U1WldRM1pXVmkuVUZRdV9HWExSbGlOUjZoaUJFMUU1YlZyZ0ZfXzE1dVI1bGE3cWJSaTZydyIsImVtYWlsIjoiZmlsaXBhbGV4YW5kcm92QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJkalN0YXR1cyI6WyJNUC5MT0dJTl9OQUciXSwiYXRfaGFzaCI6IlVUckFkXzN3dEIwaDRVQ1d2NHZ6dEEiLCJpYXQiOjE3NTUxMTgwMTMsImV4cCI6MTc1NTU1MDAxMywiYXVkIjoiNWhzc0VBZE15MG1KVElDbkpOdkM5VFhFdzNWYTdqZk8iLCJpc3MiOiJodHRwczovL3Nzby5hY2NvdW50cy5kb3dqb25lcy5jb20vIn0.HQZuCI3kXEIWK012lvIb2-wryVYc1AopRBUNsR2J0u2zfNbxu-UhykPMxOyRyIhY3TIe8BSiHjce3JPg-OnyBqOpPX4cSa5DesSi4TviEUTuqBbtWfvnty-JjXiNIJ-FaNKckQM98_AUsj5iIxZM77Wxlk9Xhgeg-msz_RyDVPPMRvSmGk84proQ8tEr0KJ3N5oqfmf_GaiXeUjWypl2C7xC46K23oBTNUFWM0VeUTIchyowgUHSLyem-N7HLnjHjg9m0pS87h1PMA3hPjVLuptbqBD--HSasJoeUDEuE9G2NKFyIg2wOOpvucRMGZ-JbgRfFTUqUm6RLkw18ngdvg",
+        "Accept-Language": "en-GB,en;q=0.9",
+        "X-Apollo-Operation-Id": "97019e06b2ca7a3e8384a9fbc6efb2b02eb6c80ae9c6df140c0bfe209a1ff898",
+        "X-Apollo-Operation-Type": "query",
+        "User-Agent": "wsj-mobile-ios 14.46.0 / iOS 18.6",
+        "Apollographql-Client-Name": "wsj-mobile-ios",
+        "X-App-Version": "ios 14.46.0",
+        "X-Apollo-Operation-Name": "ArticleContent"
+    },
+    "politico": {
+        "Cookie": "acc_segment=81; acc_segment_ts=1755117713",
+        "Accept": "*/*",
+        "X-Onet-App": "politico-template.ios.mobile-apps.onetapi.pl",
+        "User-Agent": "Mozilla/5.0 iPhone; CPU iPhone OS 18_6 like Mac OS X; Mobile RingPublishing POLITICO/15.1.7",
+        "Accept-Language": "en-GB,en;q=0.9"
+    },
+    "bloomberg": {
+        "accept": "*/*",
+        "cookie": "_session_id_backup=ec2154e5-9b61-4e50-86fd-0b7a788adcb5, agent_id=c3a51415-3b26-4741-b1dd-3ac742d2ecdd, gatehouse_id=45c07b33-8ccf-45ea-8d91-a3f92449d78d, session_id=ec2154e5-9b61-4e50-86fd-0b7a788adcb5, session_key=8cd0f86b15e15f91d5197ac91182fb68d3a3034f, geo_info=%7B%22countryCode%22%3A%22DE%22%2C%22country%22%3A%22DE%22%2C%22field_d%22%3A%22pyur.net%22%2C%22field_n%22%3A%22hf%22%2C%22trackingRegion%22%3A%22Europe%22%2C%22cacheExpiredTime%22%3A1756339544046%2C%22region%22%3A%22Europe%22%2C%22fieldN%22%3A%22hf%22%2C%22fieldD%22%3A%22pyur.net%22%7D%7C1756339544046, _breg-uid=E3FDCD41B2A149B99CBCB717A930CF11, _breg-user=%7B%22isBloombergEmployee%22%3Afalse%7D, AMP_4c214fdb8b=JTdCJTIyZGV2aWNlSWQlMjIlM0ElMjJlOWY1NDBlNi1hYzU1LTQzMjItYjY1Ni01MGRhNDEzY2QxYjMlMjIlMkMlMjJ1c2VySWQlMjIlM0ElMjJFM0ZEQ0Q0MUIyQTE0OUI5OUNCQ0I3MTdBOTMwQ0YxMSUyMiUyQyUyMnNlc3Npb25JZCUyMiUzQTE3NTU1NTkyMDMyMTAlMkMlMjJvcHRPdXQlMjIlM0FmYWxzZSUyQyUyMmxhc3RFdmVudFRpbWUlMjIlM0ExNzU1NTU5MjAzMjE0JTJDJTIybGFzdEV2ZW50SWQlMjIlM0ExMTclMkMlMjJwYWdlQ291bnRlciUyMiUzQTElN0Q=, _sp_krux=false, bbgconsentstring=req1fun0pad0, AMP_MKTG_4c214fdb8b=JTdCJTdE, _ga=GA1.1.221842294.1746355247, _ga_GQ1PBLXZCT=GS2.1.s1753092958$o5$g0$t1753092958$j60$l0$h0, _pxvid=2c0b9e07-ea37-11ef-81e4-9ac935cda8d5, consentDate=2025-02-14T14:35:27.275Z, consentUUID=855ccb9f-abb7-4721-9971-68493dd92fb1_41, usnatUUID=48f89d96-6fdb-4388-93dc-f415245a1a67",
+        "sentry-trace": "d21d8021e6bc4ab0941846882ece4f2f-3287a6fe29ec4608-0",
+        "baggage": "sentry-environment=production,sentry-public_key=c4bbe4373a9726a7118b91e59ad2b16d,sentry-release=com.bloomberg.Bloomberg%406.45.0%2B5048080,sentry-trace_id=d21d8021e6bc4ab0941846882ece4f2f",
+        "if-none-match": "W/\"08a6ff166150672e56ed18841436cbbdf\"",
+        "user-agent": "BloombergHorseshoe|iOS|18.6|6.45.0|0c54369180a6e512d2275422d7ed352d4682c0f0",
+        "accept-language": "en-GB,en;q=0.9"
+    }
+}

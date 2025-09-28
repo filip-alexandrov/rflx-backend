@@ -1,0 +1,18 @@
+[Unit]
+Description=Reflexia continous fetch
+After=network.target
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/root/rflx/backend
+ExecStart=/root/rflx/venv/bin/python /root/rflx/backend/main.py
+Restart=always
+RestartSec=60
+
+StandardOutput=append:/root/rflx/backend/logs/rflx.log
+StandardError=append:/root/rflx/backend/logs/rflx.err
+
+
+[Install]
+WantedBy=multi-user.target

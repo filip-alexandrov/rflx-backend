@@ -1,0 +1,12 @@
+[Unit]
+Description=FastAPI service
+After=network.target
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/root/rflx/backend
+ExecStart=/root/rflx/venv/bin/gunicorn -k uvicorn.workers.UvicornWorker -c /root/rflx/backend/gunicorn_conf.py server:app
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,19 @@
+[Unit]
+Description=MITM Proxy Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/project
+ExecStart=/root/project/start.sh
+
+# Restart if it fails
+Restart=on-failure
+RestartSec=5s
+
+StandardOutput=append:/root/project/mitmproxy.log
+StandardError=append:/root/project/mitmproxy.err.log
+
+[Install]
+WantedBy=multi-user.target

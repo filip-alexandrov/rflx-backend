@@ -1,0 +1,13 @@
+psycopg2-binary
+fastapi
+pywebpush
+uvicorn[standard]
+langdetect
+beautifulsoup4
+starlette
+databento
+pydantic
+py_vollib
+lxml
+scipy
+gunicorn
