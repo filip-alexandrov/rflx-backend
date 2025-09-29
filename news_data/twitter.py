@@ -14,7 +14,7 @@ class TwitterFetcher:
         self.accounts = ["FirstSquawk", "TheInsiderPaper", "notreload_ai", \
             "Trade_The_News", "LiveSquawk", "CorleoneDon77", \
             "wallstengine",  "DeItaone", "OracleNYSE", \
-            "thehill", "politico", "WSJ" ]
+            "tenet_research", "MarketNews_Feed", "CryptoMilox" ]
         
         self.search_url = "https://twitter-api45.p.rapidapi.com/timeline.php"
         
