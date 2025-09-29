@@ -30,3 +30,6 @@
 * connect to remote
     1. `ssh root@91.99.222.135`
     2. Forward port via vscode
+
+* pre-production changes
+    1. Set base url in `frontend/api.ts` to `https://api.reflexia.markets`

@@ -22,13 +22,14 @@ from fastapi import Response
 
 from news_data import ArticleSearch, Shared
 
-from market_data import equity_lf, fetch_hf_iv, fetch_lf_iv, option_solver, get_option_definitions, decode_option_ticker
+from market_data import fetch_multi_iv, equity_lf, fetch_hf_iv, option_solver, get_option_definitions, decode_option_ticker
 from kk import KK_data
 from starlette.middleware.base import BaseHTTPMiddleware
 import psycopg2
 import hashlib, secrets
 from datetime import timedelta
 from notifications import Notify
+from observations import ObservationsLibrary
     
 
 app = FastAPI()
@@ -180,14 +181,20 @@ def equity_chart(request: EquityChartRequest):
         endDate=request.endDate,
         interval=request.interval
     )
-    
-@app.post("/opt-ohlcv-lf")
-def opt_ohlcv_lf(request: EquityChartRequest):
-    return fetch_lf_iv(request.ticker, request.startDate, request.endDate, request.interval)
 
 @app.post("/opt-nbbo-hf")
 def opt_nbbo_hf(request: EquityChartRequest):
     return fetch_hf_iv(request.ticker, request.startDate, request.endDate)
+
+class MultiIVRequest(BaseModel):
+    contracts: List[str] # list of option tickers
+    startDate: str # YYYY-MM-DD HH:MM:SS or YYYY-MM-DD
+    endDate: str # YYYY-MM-DD HH:MM:SS or YYYY-MM-DD
+
+@app.post("/multi-iv")
+def multi_iv(request: MultiIVRequest):
+    return fetch_multi_iv(raw_opt_tickers=request.contracts, start_date=request.startDate, end_date=request.endDate)
+
 
 # expressions
 class Expression(BaseModel):
@@ -341,16 +348,24 @@ def get_kk_posts(search_query: str, page: int, start_date: str, end_date: str):
     return kk_data.search_posts(search_query, page, start_date=start_date, end_date=end_date)
 
 
-class SubscribeRequest(BaseModel):
-    endpoint: str
-    keys: dict
+class Observation(BaseModel):
+    type: str
+    content: str
 
-@app.post("/subscribe")
-def subscribe(request: SubscribeRequest):
-    notify = Notify()
-    
-    return notify.subscribe(
-        endpoint=request.endpoint,
-        p256dh=request.keys.get("p256dh"),
-        auth=request.keys.get("auth")
-    )
+@app.post("/observation")
+def create_observation(observation: Observation):
+    obs = ObservationsLibrary()
+    return obs.create_observation(type=observation.type, content=observation.content)
+
+@app.get("/observations")
+def get_observations(type: str, query: str):
+    obs = ObservationsLibrary()
+    return obs.get_observations(type=type, query=query)
+
+@app.delete("/observation/{observation_id}")
+def delete_observation(observation_id: int):
+    obs = ObservationsLibrary()
+    success = obs.delete_observation(observation_id)
+    if not success:
+        raise HTTPException(status_code=404, detail="Observation not found")
+    return {"success": True, "message": "Observation deleted successfully."}

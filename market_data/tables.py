@@ -111,198 +111,131 @@ def decode_option_ticker(option_ticker):
     strike_price = int(dollars) + int(cents) / 1000
     
     return option_ticker, underlying_ticker, expiration_date, strike_price, t
-    
-    
-# Opt. OHLCV LF Underlying + IV
-def fetch_lf_iv(option_ticker, startDate, endDate, interval): 
-    client = Historical("db-ccxiVwBnUxpTTPmBRW4C3gSQkj9PX") 
-    
-    # get the underlying 
-    option_ticker, underlying_ticker, expiration_date, strike_price, t = decode_option_ticker(option_ticker)
-    
-    start_date, end_date, interval = date_and_interval_validation(startDate, endDate, interval)
+
+def fetch_multi_iv(raw_opt_tickers, start_date, end_date): 
+    client = Historical("db-UVPEpgVxgduVKFnQ9tgEp6cSTL65H") 
+
+    underlying_ticker = ""
+    option_tickers_parsed = []
+
+    for raw_ticker in raw_opt_tickers:
+        option_ticker, underlying_ticker, expiration_date, strike_price, t = decode_option_ticker(raw_ticker)
+
+        option_tickers_parsed.append({
+            "option_ticker": option_ticker,
+            "trace_name": f"{expiration_date.strftime('%Y-%m-%d')} {t} {strike_price}",
+            "underlying_ticker": underlying_ticker,
+            "expiration_date": expiration_date,
+            "strike_price": strike_price,
+            "type": t
+        })
+
+
+    # move to UTC 
+    nyc_tz = ZoneInfo("America/New_York")
+    utc_tz = ZoneInfo("UTC")
+
+    # convert to datetime objects
+    start_date = datetime.strptime(start_date, "%Y-%m-%d %H:%M")
+    end_date = datetime.strptime(end_date, "%Y-%m-%d %H:%M")
+
+    start_date = start_date.replace(tzinfo=nyc_tz)
+    start_date = start_date.astimezone(utc_tz)
+
+    end_date = end_date.replace(tzinfo=nyc_tz)
+    end_date = end_date.astimezone(utc_tz)
+
+    # max 5 days
+    if end_date - start_date > pd.Timedelta(days=5):
+        raise HTTPException(status_code=400, detail="Maximum range is 30 minutes.")
     
     df_underlying = client.timeseries.get_range(
         dataset="XNAS.ITCH",
-        schema=f"ohlcv-1{interval}",
+        schema=f"trades",
         symbols=underlying_ticker,
-        start=start_date,
-        end=end_date
-    ).to_df()     
-    
-    df_option = client.timeseries.get_range(
-        dataset="OPRA.PILLAR",
-        schema=f"ohlcv-1{interval}",
-        symbols=option_ticker,
         start=start_date,
         end=end_date,
     ).to_df()
 
-    df_option = df_option.groupby(df_option.index).agg({
-        'open': 'mean',
-        'high': 'max',
-        'low': 'min',
-        'close': 'mean',
-        'volume': 'sum'
-    })
+    full_data = {"options": [], "underlying": []}
 
-    df_underlying = df_underlying.groupby(df_underlying.index).agg({
-        'open': 'mean',
-        'high': 'max',
-        'low': 'min',
-        'close': 'mean',
-        'volume': 'sum'
-    })
-    
-    df3 = pd.merge_asof(
-        df_option,
-        df_underlying,
-        on='ts_event',
-        direction='nearest'
-    )
-    
-    
-    iv_data_full = []
-    
-    for row in df3.itertuples():
-        # get current eastern time date 
+    for row in df_underlying.itertuples():
         row_date = row.ts_event # in UTC
         row_date = row_date.replace(tzinfo=ZoneInfo("UTC"))
         
         # convert to eastern time
-        if interval != "d": # daily will be just 00:00:00, date matches
-            row_date = row_date.astimezone(ZoneInfo("America/New_York"))
-        
-        # hours until expiration
-        hours_until_expiration = (expiration_date - row_date).total_seconds() / 3600
-        
-        years_until_expiration = hours_until_expiration / (24 * 365.25) 
-        
-        
-        open_option = row.open_x
-        open_underlying = row.open_y 
-        
-        high_option = row.high_x
-        high_underlying = row.high_y
-        
-        low_option = row.low_x
-        low_underlying = row.low_y
-        
-        close_option = row.close_x
-        close_underlying = row.close_y
-        
-        volume_option = row.volume_x
-        volume_underlying = row.volume_y
+        row_date = row_date.astimezone(ZoneInfo("America/New_York"))
+        row_date_str = row_date.strftime("%Y-%m-%d %H:%M:%S.%f")
 
-        try:
-            iv_open = implied_volatility(
-                open_option,
-                open_underlying,
-                strike_price,
-                years_until_expiration,
-                0.04,
-                t.lower())
-        except Exception as e:
-            iv_open = 0
-
-        try:
-            iv_high = implied_volatility(
-                high_option,
-                high_underlying,
-                strike_price,
-                years_until_expiration,
-                0.04,
-                t.lower())
-        except Exception as e:
-            iv_high = 0
-
-        try:
-            iv_low = implied_volatility(
-                low_option,
-                low_underlying,
-                strike_price,
-                years_until_expiration,
-                0.04,
-                t.lower())
-        except Exception as e:
-            iv_low = 0
-        
-        try:
-            iv_close = implied_volatility(
-                close_option,
-                close_underlying,
-                strike_price,
-                years_until_expiration,
-                0.04,
-                t.lower())
-        except Exception as e:
-            iv_close = 0
-        
-        iv_midpoint = (iv_open + iv_high + iv_low + iv_close) / 4
-        
-        volume_option = row.volume_x
-        volume_underlying = row.volume_y
-        
-        # set precision and stringify
-        open_option = format(open_option, ".3f")
-        high_option = format(high_option, ".3f")
-        low_option = format(low_option, ".3f")
-        close_option = format(close_option, ".3f")
-        volume_option = format(volume_option, ".0f")
-        
-        open_underlying = format(open_underlying, ".3f")
-        high_underlying = format(high_underlying, ".3f")
-        low_underlying = format(low_underlying, ".3f")
-        close_underlying = format(close_underlying, ".3f")
-        volume_underlying = format(volume_underlying, ".0f")
-        
-        iv_open = format(iv_open, ".3f")
-        iv_high = format(iv_high, ".3f")
-        iv_low = format(iv_low, ".3f")
-        iv_close = format(iv_close, ".3f")
-        iv_midpoint = format(iv_midpoint, ".3f")
-        
-        row_date = row_date.strftime("%Y-%m-%d %H:%M:%S")
-        
-        print(f"IV: {iv_open} {iv_high} {iv_low} {iv_close} {iv_midpoint}")
-        
-        iv_data_full.append({
-            "row_date": row_date,
-            
-            "open_option": open_option,
-            "high_option": high_option,
-            "low_option": low_option,
-            "close_option": close_option,
-            "volume_option": volume_option,
-            
-            "open_underlying": open_underlying,
-            "high_underlying": high_underlying,
-            "low_underlying": low_underlying,
-            "close_underlying": close_underlying,
-            "volume_underlying": volume_underlying,
-            
-            "iv_open": iv_open,
-            "iv_high": iv_high,
-            "iv_low": iv_low,
-            "iv_close": iv_close,
-            "iv_midpoint": iv_midpoint
+        full_data["underlying"].append({
+            "ts_event": row_date_str,
+            "price": row.price,
+            "size": row.size,
         })
-        
-    global_data = {
-        "expiration_date" : expiration_date.strftime("%Y-%m-%d %H:%M:%S"), 
-        "underlying_ticker": underlying_ticker, 
-        "option_ticker": option_ticker, 
-        "strike_price": format(strike_price, ".2f")
-    }
     
-    return {
-        "global_data": global_data,
-        "table_data": iv_data_full
-    }
+
+    for option_ticker_dict in option_tickers_parsed:
+        option_ticker = option_ticker_dict["option_ticker"]
+
+        df_option = client.timeseries.get_range(
+            dataset="OPRA.PILLAR",
+            schema="trades",
+            symbols=option_ticker,
+            start=start_date,
+            end=end_date).to_df()
+        
+        df3 = pd.merge_asof(
+            df_option,
+            df_underlying,
+            on='ts_event',
+            direction='nearest'
+        )
+
+        
+        opt_pricing_data = []
+
+        for row in df3.itertuples():
+            row_date = row.ts_event
+            row_date = row_date.replace(tzinfo=ZoneInfo("UTC"))
+            row_date = row_date.astimezone(ZoneInfo("America/New_York"))
+            
+            # include milliseconds
+            row_date_str = row_date.strftime("%Y-%m-%d %H:%M:%S.%f")
+            
+            expiration_date = option_ticker_dict["expiration_date"]
+            hours_until_expiration = (expiration_date - row_date).total_seconds() / 3600
+            
+            years_until_expiration = hours_until_expiration / (24 * 365.25) 
+            
+            if pd.isna(row.price_x) or pd.isna(row.price_y):
+                continue
+                
+            try:
+                iv = implied_volatility(
+                    row.price_x,
+                    row.price_y,
+                    option_ticker_dict["strike_price"],
+                    years_until_expiration,
+                    0.04,
+                    option_ticker_dict['type'].lower())
+            except Exception as e:
+                iv = 0
+
+            opt_pricing_data.append({
+                                "ts_event": row_date_str,
+                                "price": row.price_x,
+                                "size": row.size_x,
+                                "underlying_price": row.price_y,
+                                "iv": iv})
+
+        full_data["options"].append({"contract": option_ticker_dict['trace_name'], "data": opt_pricing_data})
+
+    return full_data
+
 
 # Opt. NBBO HF Underlying + IV
 def fetch_hf_iv(option_ticker, startDate, endDate): 
-    client = Historical("db-ccxiVwBnUxpTTPmBRW4C3gSQkj9PX") 
+    client = Historical("db-UVPEpgVxgduVKFnQ9tgEp6cSTL65H") 
     
     # get the underlying 
     option_ticker, underlying_ticker, expiration_date, strike_price, t = decode_option_ticker(option_ticker)
@@ -486,7 +419,7 @@ def fetch_hf_iv(option_ticker, startDate, endDate):
 
 # Eq. OHLCV LF
 def equity_lf(ticker, startDate, endDate, interval): 
-    client = Historical("db-ccxiVwBnUxpTTPmBRW4C3gSQkj9PX") 
+    client = Historical("db-UVPEpgVxgduVKFnQ9tgEp6cSTL65H") 
     
     ticker = ticker.upper()
     

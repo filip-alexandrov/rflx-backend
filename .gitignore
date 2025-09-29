@@ -1,3 +1,4 @@
 **/logs/
 **/postgres/
 twitter_log.json
+**/_dev*.ipynb
