@@ -17,7 +17,7 @@ def get_option_definitions(start_date: str, ticker: str):
     
     ticker = ticker.upper()
     
-    client = Historical(key="db-UVPEpgVxgduVKFnQ9tgEp6cSTL65H",)
+    client = Historical(key="db-f4xsBY4QxecG4WEFRGJGDnTdbb7aQ",)
     
     try: 
         defs = client.timeseries.get_range(

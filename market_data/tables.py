@@ -6,6 +6,12 @@ from fastapi.responses import JSONResponse
 import pandas as pd 
 from py_vollib.black_scholes.implied_volatility import implied_volatility
 from scipy.optimize import brentq, minimize_scalar
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file at project root
+load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
+DATABENTO_API_KEY = os.getenv("DATABENTO_API_KEY")
 
 # calculate chart settings (ranges of the axis)
 def solve_minx(x_anchor, y_anchor, x_max, y_min, y_max):
@@ -113,7 +119,7 @@ def decode_option_ticker(option_ticker):
     return option_ticker, underlying_ticker, expiration_date, strike_price, t
 
 def fetch_multi_iv(raw_opt_tickers, start_date, end_date): 
-    client = Historical("db-UVPEpgVxgduVKFnQ9tgEp6cSTL65H") 
+    client = Historical(DATABENTO_API_KEY) 
 
     underlying_ticker = ""
     option_tickers_parsed = []
@@ -235,7 +241,7 @@ def fetch_multi_iv(raw_opt_tickers, start_date, end_date):
 
 # Opt. NBBO HF Underlying + IV
 def fetch_hf_iv(option_ticker, startDate, endDate): 
-    client = Historical("db-UVPEpgVxgduVKFnQ9tgEp6cSTL65H") 
+    client = Historical(DATABENTO_API_KEY) 
     
     # get the underlying 
     option_ticker, underlying_ticker, expiration_date, strike_price, t = decode_option_ticker(option_ticker)
@@ -419,7 +425,7 @@ def fetch_hf_iv(option_ticker, startDate, endDate):
 
 # Eq. OHLCV LF
 def equity_lf(ticker, startDate, endDate, interval): 
-    client = Historical("db-UVPEpgVxgduVKFnQ9tgEp6cSTL65H") 
+    client = Historical(DATABENTO_API_KEY) 
     
     ticker = ticker.upper()
     

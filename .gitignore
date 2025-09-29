@@ -1,5 +1,6 @@
+twitter_log.json
 **/logs/
 **/postgres/
-twitter_log.json
 **/_dev*.ipynb
 **/__pycache__/
+**/.env
