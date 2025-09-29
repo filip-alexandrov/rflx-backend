@@ -5,6 +5,14 @@ import pandas as pd
 from fastapi.responses import JSONResponse
 from .tables import decode_option_ticker
 
+from dotenv import load_dotenv
+import os
+
+
+# Load environment variables from .env file at project root
+load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
+DATABENTO_API_KEY = os.getenv("DATABENTO_API_KEY")
+
 
 
 def get_option_definitions(start_date: str, ticker: str):
@@ -16,10 +24,10 @@ def get_option_definitions(start_date: str, ticker: str):
         raise HTTPException(status_code=400, detail="Invalid date format. Use DD-MM-YYYY.")
     
     ticker = ticker.upper()
-    
-    client = Historical(key="db-f4xsBY4QxecG4WEFRGJGDnTdbb7aQ",)
-    
-    try: 
+
+    client = Historical(key=DATABENTO_API_KEY)
+
+    try:
         defs = client.timeseries.get_range(
             dataset="OPRA.PILLAR",
             schema="definition",
