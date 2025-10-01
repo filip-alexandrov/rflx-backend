@@ -349,18 +349,18 @@ def get_kk_posts(search_query: str, page: int, start_date: str, end_date: str):
 
 
 class Observation(BaseModel):
-    type: str
+    description: str
     content: str
 
 @app.post("/observation")
 def create_observation(observation: Observation):
     obs = ObservationsLibrary()
-    return obs.create_observation(type=observation.type, content=observation.content)
+    return obs.create_observation(description=observation.description, content=observation.content)
 
 @app.get("/observations")
-def get_observations(type: str, query: str):
+def get_observations(query: str, page: int = 1):
     obs = ObservationsLibrary()
-    return obs.get_observations(type=type, query=query)
+    return obs.get_observations(query=query, page=page)
 
 @app.delete("/observation/{observation_id}")
 def delete_observation(observation_id: int):
@@ -369,3 +369,42 @@ def delete_observation(observation_id: int):
     if not success:
         raise HTTPException(status_code=404, detail="Observation not found")
     return {"success": True, "message": "Observation deleted successfully."}
+
+
+@app.put("/observation/{observation_id}")
+def update_observation(observation_id: int, observation: Observation):
+    obs = ObservationsLibrary()
+    success = obs.update_observation(observation_id, description=observation.description, content=observation.content)
+    if not success:
+        raise HTTPException(status_code=404, detail="Observation not found")
+    return {"success": True, "message": "Observation updated successfully."}
+
+@app.get("/calendar-events")
+def get_calendar_events():
+    obs = ObservationsLibrary()
+    return obs.get_calendar_events()
+
+class CalendarEvent(BaseModel):
+    title: str
+    date: str  # YYYY-MM-DD
+
+@app.post("/calendar-events")
+def create_calendar_event(event: CalendarEvent):
+    obs = ObservationsLibrary()
+    return obs.create_calendar_event(title=event.title, date=event.date)
+
+@app.delete("/calendar-events/{event_id}")
+def delete_calendar_event(event_id: int): 
+    obs = ObservationsLibrary()
+    success = obs.delete_calendar_event(event_id)
+    if not success:
+        raise HTTPException(status_code=404, detail="Event not found")
+    return {"success": True, "message": "Event deleted successfully."}
+
+@app.put("/calendar-events/{event_id}")
+def update_calendar_event(event_id: int, event: CalendarEvent):
+    obs = ObservationsLibrary()
+    success = obs.update_event(event_id, date=event.date)
+    if not success:
+        raise HTTPException(status_code=404, detail="Event not found")
+    return {"success": True, "message": "Event updated successfully."}
